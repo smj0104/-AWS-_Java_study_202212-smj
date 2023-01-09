@@ -5,9 +5,13 @@ import java.util.Scanner;
 public class j12_UserService {
 
 	private Scanner scanner;// 대입 할 일 없음 항상 생성자를 통해서만 대입
+	private j12_UserRepository userRepository;
 
-	public j12_UserService() {
+	public j12_UserService(j12_UserRepository userRepository) {
 		scanner = new Scanner(System.in);// 이 객체를 생성해야지만 스캐너가 할당된다 (메모리 정리용)
+		this.userRepository = userRepository;
+		// userRepository = new j12_UserRepository(null); (결합도가 높아짐)
+
 	}
 
 	public void run() {
@@ -37,7 +41,7 @@ public class j12_UserService {
 	private char inputSelect(String menuName) {
 		System.out.println(menuName + "메뉴 선택: ");
 		char select = scanner.next().charAt(0);// 제일 첫글자 하나만 잘라서 char에 넣어준다
-		scanner.nextLine(); // 버퍼 비우는 용
+		scanner.nextLine(); // 버퍼 비우는 용 (윗줄에 enter가 들어가서)
 		return select;
 
 	}
@@ -53,6 +57,40 @@ public class j12_UserService {
 		System.out.println();
 	}
 
+	private void showUsers() {
+		j12_User[] users = userRepository.getUserTable();
+
+		System.out.println("=================<<회원 전체 조회>>====================");
+
+		for (j12_User user : users) {
+			System.out.println(user.toString());
+		}
+
+		System.out.println("===================================================");
+
+	}
+
+	private void registerUser() {
+		j12_User user = new j12_User();
+
+		System.out.println("================<<회원 등록>>====================");
+		System.out.println("사용자이름: ");
+		user.setUsername(scanner.nextLine());
+
+		System.out.println("비밀번호: ");
+		user.setPassword(scanner.nextLine());
+
+		System.out.println("성명: ");
+		user.setName(scanner.nextLine());
+
+		System.out.println("이메일: ");
+		user.setEmail(scanner.nextLine());
+	}
+	
+	private void XXXuser() {
+		
+	}
+
 	private boolean mainMenu(char select) {
 		boolean flag = true;
 
@@ -60,7 +98,9 @@ public class j12_UserService {
 			flag = false;
 		} else {
 			if (select == '1') {
+				showUsers();
 			} else if (select == '2') {
+				registerUser();
 			} else if (select == '3') {
 			} else if (select == '4') {
 			} else {
@@ -78,7 +118,7 @@ public class j12_UserService {
 	}
 
 	private String getSelectedErrorMessage() {
-		return "###<<잘못된 입력입니다. 다시 입력하세요.>>###";  //void를 사용가능하지만 값이 고정되어 고칠수없게된다.
+		return "###<<잘못된 입력입니다. 다시 입력하세요.>>###"; // void를 사용가능하지만 값이 고정되어 고칠수없게된다.
 	}
 
 }

@@ -6,7 +6,6 @@ public class j12_UserRepository {
 	private j12_User[] userTable;
 
 	public j12_UserRepository(j12_User[] userTable) { // 전체생성자 constructor usingfields
-		super();
 		this.userTable = userTable;
 	}
 
