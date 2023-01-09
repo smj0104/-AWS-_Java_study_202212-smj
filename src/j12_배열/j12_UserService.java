@@ -104,7 +104,7 @@ public class j12_UserService {
 
 	}
 
-	private void modifyUser() {
+	private void updateUser() { //
 		j12_User user = new j12_User();
 
 		System.out.println("\"=================<<회원 정보 수정>>====================\"");
@@ -112,18 +112,7 @@ public class j12_UserService {
 		user.setUsername(scanner.nextLine());
 
 		user = userRepository.finduserByUserName(user.getUsername());
-		if (user == null) {
-			System.out.println("해당 사용자이름은 존재하지 않는 사용자이름입니다.");
-		} else {
-			System.out.println("==========<< 수정메뉴 >>=============");
-			System.out.println("사용자이름: " + user.getUsername());
-			System.out.println("==================================");
-			System.out.println("1.비밀번호 변경");
-			System.out.println("2.이름 변경");
-			System.out.println("3.이메일 변경");
-			System.out.println("==================================");
-			System.out.println("b. 뒤로가기");
-		}
+		
 
 
 		
@@ -147,7 +136,7 @@ public class j12_UserService {
 			} else if (select == '3') { // 사용자이름으로 회원 조회
 				checkUser();
 			} else if (select == '4') { // 1비밀번호 변경 2이름 변경 3이메일 수정 나와야함 b써서 뒤로가기 가능하게 (비밀번호 수정시 기존의 비밀번호와 일치하는지 확인하기)
-				modifyUser(); // "수정 할 사용자 이름을 입력하세요: "
+				updateUser(); // "수정 할 사용자 이름을 입력하세요: "
 			} else { // << 사용자 이름: aaa >>
 				System.out.println(getSelectedErrorMessage());
 			}

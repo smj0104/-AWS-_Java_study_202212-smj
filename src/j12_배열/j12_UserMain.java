@@ -1,15 +1,14 @@
 package j12_배열;
 //MVC(모델 뷰 컨트롤러) -> service -> repository -> DB (기본 틀로 잡고 살을 붙여간다)
 //프로그래밍은 반복이 중요
+//이진탐색법 알아보기 (다른 여러가지 알고리즘도 알아두면 좋다)
 
 public class j12_UserMain {
 	
 	public static void main(String[] args) {
 		j12_User[] users = new j12_User[0];
-		j12_User[] users2 = new j12_User[100];
 		
 		j12_UserRepository userRepository = new j12_UserRepository(users);
-		j12_UserRepository userRepository2 = new j12_UserRepository(users2);
 		
 		j12_UserService service = new j12_UserService(userRepository);
 		
