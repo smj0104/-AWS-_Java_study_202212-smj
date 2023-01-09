@@ -1,4 +1,6 @@
 package j12_배열;
+//MVC(모델 뷰 컨트롤러) -> service -> repository -> DB (기본 틀로 잡고 살을 붙여간다)
+//프로그래밍은 반복이 중요
 
 public class j12_UserMain {
 	
@@ -11,7 +13,7 @@ public class j12_UserMain {
 		
 		j12_UserService service = new j12_UserService(userRepository);
 		
-		service.run();
+		service.run();  
 		service.stop();
 		
 		System.out.println("코드 수정하였습니다.");

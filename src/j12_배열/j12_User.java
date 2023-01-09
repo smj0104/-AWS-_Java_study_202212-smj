@@ -52,7 +52,7 @@ public class j12_User {
 	}
 	//자바책 175p 참조(생성자)	
 
-	@Override
+	@Override  //오버라이드가 없어도 동작함
 	public String toString() {
 		return "j12_User [username=" + username + ", password=" + password + ", name=" + name + ", email=" + email
 				+ "]";

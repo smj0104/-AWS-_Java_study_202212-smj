@@ -1,6 +1,7 @@
 package j12_배열;
 
 //repository 저장소  (응집도가 높은 경우)
+//repository를 통해서 배열을 받아온다
 public class j12_UserRepository {
 
 	private j12_User[] userTable;
@@ -35,5 +36,22 @@ public class j12_UserRepository {
 		for (int i = 0; i < oldArray.length; i++) {
 			newArray[i] = oldArray[i];
 		}
+	}
+	
+	public j12_User finduserByUserName(String username) {  //선형탐색
+		
+	j12_User user = null;  //항상 null 체크하기
+		
+		for(j12_User u : userTable) {
+			if(u == null) {
+				continue;
+			}
+			if(u.getUsername().equals(username)) {
+				user = u;
+				break;
+			}
+		}
+		
+		return user;
 	}
 }
