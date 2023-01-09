@@ -118,7 +118,12 @@ public class j12_UserService {
 			System.out.println("==========<< 수정메뉴 >>=============");
 			System.out.println("사용자이름: " + user.getUsername());
 			System.out.println("==================================");
-		}System.out.println("1.비밀번호 변경");
+			System.out.println("1.비밀번호 변경");
+			System.out.println("2.이름 변경");
+			System.out.println("3.이메일 변경");
+			System.out.println("==================================");
+			System.out.println("b. 뒤로가기");
+		}
 
 
 		
