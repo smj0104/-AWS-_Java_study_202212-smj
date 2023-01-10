@@ -7,7 +7,7 @@ public class J10_Student {
 	
 	
 	J10_Student() {
-		System.out.println("기본 생성자 호출");
+		System.out.println("기본 생성자 호출"); // <----- no argument constructor
 	}
 
 	J10_Student(int age) {
@@ -23,7 +23,7 @@ public class J10_Student {
 //		age = _age; 안좋은 예시
 //	}
 	
-	J10_Student(String name, int age) {
+	J10_Student(String name, int age) { // all argument constructor
 		this.name = name;
 		this.age = age; //this는 자기자신의 주소 붙이면 참조 변수 사용 아닐시에는 지역변수 사용
 	}

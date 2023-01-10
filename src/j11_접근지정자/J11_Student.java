@@ -1,6 +1,7 @@
 package j11_접근지정자;
 // ctrl shift f 줄정리
 // private public 기억하기
+// alt shift s 게터세터 
 public class J11_Student {
 
 	String name;
