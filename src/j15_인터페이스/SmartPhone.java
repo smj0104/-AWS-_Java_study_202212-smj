@@ -1,5 +1,5 @@
 package j15_인터페이스;
-
+                                      
 public class SmartPhone extends Equipment implements Calculator {
 	
 	@Override
