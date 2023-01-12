@@ -9,8 +9,8 @@ class Test { // 이 패키지 안에서만 참조가능 이렇게 사용하지�
 		System.out.println(num + "생성");
 	}
 
-	@Override
-	protected void finalize() throws Throwable { // 소멸될때 실행되는 메소드
+	@Override        //?
+	protected void finalize() throws Throwable { // 소멸될때 실행되는 
 		System.out.println(num + "객체 소멸");
 	}
 

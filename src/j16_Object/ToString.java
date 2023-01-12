@@ -1,5 +1,5 @@
 package j16_Object;
-
+// 상수는 반드시 초기화가 한번 일어나야한다. Required args constructor = (final이 붙어있는 필수적인것만 담음)
 public class ToString {
 	
 	public static void main(String[] args) {
@@ -29,6 +29,8 @@ public class ToString {
 		System.out.println(student2.toString());
 		System.out.println(student3.toString());
 		System.out.println(student4.toString());
+		
+		
 	}
 
 }

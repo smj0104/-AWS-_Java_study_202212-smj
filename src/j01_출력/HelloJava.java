@@ -1,5 +1,8 @@
 package j01_출력;
 
+import j17_스태틱.싱글톤.A;
+import j17_스태틱.싱글톤.KIA;
+
 public class HelloJava {
 	// 주석: 코드 내부에 메모시 사용
 	// 컴파일 시에 무시
@@ -22,6 +25,11 @@ public class HelloJava {
 	System.out.println("주소: 부산 남구 문현동");
 	System.out.println("연락처: 010-4001-9064");
 	System.out.println("수업: AWS 기반 공공빅데이터 활용 웹개발자 양성 ");
+	
+	System.out.println();
+	
+	KIA.getInstance().printCompanyName();
+	A.getInstance().showStudents();
 	}
 
 }
