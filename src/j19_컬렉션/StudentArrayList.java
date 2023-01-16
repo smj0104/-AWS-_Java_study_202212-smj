@@ -3,7 +3,7 @@ package j19_컬렉션;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentArrayList {
+public class StudentArrayList { 
 
 	public static void updateYear(List<Student> students, String searchname, int newYear) {
 

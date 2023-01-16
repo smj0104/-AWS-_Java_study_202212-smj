@@ -6,9 +6,8 @@ import lombok.Data;
 // ctrl shift o 안쓰는것들 정리 
 //@NoArgsConstructor  //생성자의 매개변수 없음  기본 생성자
 @AllArgsConstructor // 전체 생성자
-@Data
 
-
+@Data  //아래 전부 포함
 //@RequiredArgsConstructor
 //@Getter
 //@Setter
