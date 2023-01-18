@@ -6,29 +6,49 @@ import java.util.List;
 import usermanagement.entity.User;
 
 public class UserRepository {
-	
+
 	private List<User> userDataList;
-	
+
 	private static UserRepository instance;
-	
+
 	public static UserRepository getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new UserRepository();
 		}
 		return instance;
 	}
-	
+
 	private UserRepository() {
 		userDataList = new ArrayList<>();
+		userDataList.add(User.builder()
+				.username("aaa")
+				.password("1234")
+				.name("김준일")
+				.email("aaa@gmail.com")
+				.build());  //마지막에 build해야 생성됨
 	}
-	
+
 	public void saveUser(User user) {
 		userDataList.add(user);
 	}
-	
+
 	public User findUserByUsername(String username) {
-		for(User user : userDataList) {
-			if(user.getUsername().equals(username)) {
+		User user = null;
+
+		for (User u : userDataList) {
+			if (u.getUsername().equals(username)) {
+				user = u;
+				break;
+			}
+		}
+		return user;
+	}
+
+	public User findUserByEmail(String email) {
+		User user = null;
+
+		for (User u : userDataList) {
+			if (u.getEmail().equals(email)) {
 				user = u;
 				break;
 			}
