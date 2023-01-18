@@ -23,6 +23,8 @@ import javax.swing.SwingConstants;
 import com.google.gson.JsonObject;
 
 import usermanagement.service.UserService;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UserManagementFrame extends JFrame {
 	
@@ -97,17 +99,36 @@ public class UserManagementFrame extends JFrame {
 
 		JLabel usernameLabel = new JLabel("Username or email");
 		usernameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		usernameLabel.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		usernameLabel.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		usernameLabel.setBounds(37, 194, 144, 15);
 		loginPanel.add(usernameLabel);
 
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		passwordLabel.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		passwordLabel.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		passwordLabel.setBounds(37, 246, 144, 15);
 		loginPanel.add(passwordLabel);
 
 		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JsonObject loginUser = new JsonObject();
+				loginUser.addProperty("usernameAndEmail", usernameField.getText());
+				loginUser.addProperty("password", passwordField.getText());
+				
+				UserService userService = UserService.getInstance();
+				
+				Map<String, String> response = userService.authorize(loginUser.toString());
+				
+				if(response.containsKey("ok")) {
+					JOptionPane.showMessageDialog(null, response.get("error"), "error", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+				
+				JOptionPane.showMessageDialog(null, response.get("ok"), "ok", JOptionPane.INFORMATION_MESSAGE);
+				
+			}
+		});
 		
 //		MouseListener listener = new MouseAdapter() {
 //			@Override
@@ -126,13 +147,13 @@ public class UserManagementFrame extends JFrame {
 			}
 		});
 		loginButton.setForeground(new Color(0, 0, 0));
-		loginButton.setFont(new Font("Gadugi", Font.BOLD, 15));
+		loginButton.setFont(new Font("CookieRun Black", Font.BOLD, 15));
 		loginButton.setBackground(new Color(255, 255, 255));
 		loginButton.setBounds(37, 311, 311, 36);
 		loginPanel.add(loginButton);
 
 		JLabel signupDesc = new JLabel("Don't have an account?");
-		signupDesc.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		signupDesc.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		signupDesc.setBounds(79, 374, 154, 26);
 		loginPanel.add(signupDesc);
 
@@ -145,13 +166,13 @@ public class UserManagementFrame extends JFrame {
 			}
 		});
 		signupLink.setForeground(new Color(0, 102, 204));
-		signupLink.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		signupLink.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		signupLink.setBounds(242, 380, 57, 15);
 		loginPanel.add(signupLink);
 
 		JLabel forgotPasswordLink = new JLabel("Forgot your password?");
 		forgotPasswordLink.setForeground(new Color(0, 102, 204));
-		forgotPasswordLink.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		forgotPasswordLink.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		forgotPasswordLink.setBounds(110, 394, 154, 26);
 		loginPanel.add(forgotPasswordLink);
 
@@ -187,7 +208,7 @@ public class UserManagementFrame extends JFrame {
 
 		JLabel registerUsernameLabel = new JLabel("Username");
 		registerUsernameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		registerUsernameLabel.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		registerUsernameLabel.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		registerUsernameLabel.setBounds(36, 135, 144, 15);
 		registerPanel.add(registerUsernameLabel);
 
@@ -199,7 +220,7 @@ public class UserManagementFrame extends JFrame {
 
 		JLabel registerPasswordLabel = new JLabel("Password");
 		registerPasswordLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		registerPasswordLabel.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		registerPasswordLabel.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		registerPasswordLabel.setBounds(36, 187, 144, 15);
 		registerPanel.add(registerPasswordLabel);
 
@@ -210,7 +231,7 @@ public class UserManagementFrame extends JFrame {
 
 		JLabel registerNameLabel = new JLabel("name");
 		registerNameLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		registerNameLabel.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		registerNameLabel.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		registerNameLabel.setBounds(36, 238, 144, 15);
 		registerPanel.add(registerNameLabel);
 
@@ -222,7 +243,7 @@ public class UserManagementFrame extends JFrame {
 
 		JLabel registerEmailLabel = new JLabel("email");
 		registerEmailLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		registerEmailLabel.setFont(new Font("마비옛체", Font.PLAIN, 12));
+		registerEmailLabel.setFont(new Font("CookieRun Regular", Font.PLAIN, 12));
 		registerEmailLabel.setBounds(36, 290, 144, 15);
 		registerPanel.add(registerEmailLabel);
 
