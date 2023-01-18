@@ -79,12 +79,13 @@ public class UserManagementFrame extends JFrame {
 		loginPanel.add(logoText);
 
 		JLabel loginText = new JLabel("Login");
-		loginText.setFont(new Font("Gadugi", Font.PLAIN, 30));
+		loginText.setFont(new Font("마비옛체", Font.PLAIN, 30));
 		loginText.setHorizontalAlignment(SwingConstants.CENTER);
 		loginText.setBounds(121, 69, 135, 56);
 		loginPanel.add(loginText);
 
 		usernameField = new JTextField();
+		usernameField.setFont(new Font("마비옛체", Font.PLAIN, 12));
 		usernameField.setHorizontalAlignment(SwingConstants.CENTER);
 		usernameField.setBounds(37, 210, 311, 26);
 		loginPanel.add(usernameField);
@@ -122,12 +123,20 @@ public class UserManagementFrame extends JFrame {
 		loginButton.addMouseListener(new MouseAdapter() {  //마우스어댑터가 리스너를 이미 구현함 마우스 어댑터로 구현하고싶은것만 구현
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				JsonObject userLogin = new JsonObject();
+				userLogin.addProperty("username", registerUsernameField.getText());
+				userLogin.addProperty("password", registerPasswordField.getText());
+				
+				UserService userService = UserService.getInstance();
+				
+				
 				System.out.println("로그인 요청");
+				
 				
 			}
 		});
 		loginButton.setForeground(new Color(0, 0, 0));
-		loginButton.setFont(new Font("Gadugi", Font.BOLD, 15));
+		loginButton.setFont(new Font("마비옛체", Font.BOLD, 15));
 		loginButton.setBackground(new Color(255, 255, 255));
 		loginButton.setBounds(37, 311, 311, 36);
 		loginPanel.add(loginButton);
@@ -182,7 +191,7 @@ public class UserManagementFrame extends JFrame {
 
 		JLabel registerText = new JLabel("Register");
 		registerText.setHorizontalAlignment(SwingConstants.CENTER);
-		registerText.setFont(new Font("Gadugi", Font.PLAIN, 30));
+		registerText.setFont(new Font("마비옛체", Font.PLAIN, 30));
 		registerText.setBounds(121, 69, 135, 56);
 		registerPanel.add(registerText);
 
@@ -261,7 +270,7 @@ public class UserManagementFrame extends JFrame {
 			}
 		});
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setFont(new Font("CookieRun Black", Font.BOLD, 18));
+		lblNewLabel_1.setFont(new Font("마비옛체", Font.BOLD, 18));
 		lblNewLabel_1.setBounds(93, 370, 206, 37);
 		registerPanel.add(lblNewLabel_1);
 		

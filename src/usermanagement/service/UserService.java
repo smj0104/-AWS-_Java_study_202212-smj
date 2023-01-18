@@ -31,6 +31,22 @@ public class UserService {
 		gson = new GsonBuilder().setPrettyPrinting().create();
 	}
 	
+			//BCrypt.checkpw ("1234", asdrasdffasdfdasfds) 1234와 복호화된 숫자를 비교함
+
+	public Map<String, String> loginUser(String userJson) {
+		Map<String, String> response = new HashMap<>();
+		
+		Map<String, String> userMap = gson.fromJson(userJson, Map.class);
+		for(Entry<String, String> userEntry : userMap.entrySet()) {		
+			User user = gson.fromJson(userJson, User.class);
+			
+			user.getPassword(BCrypt.checkpw(user., BCrypt.gensalt()));
+
+		
+		}
+		
+	}
+		
 	
 	public Map<String, String> register(String userJson) {
 		//response: 응답
@@ -78,6 +94,8 @@ public class UserService {
 		
 		return response;
 	}
+	
+//	User user = gson.fromJson(log, null)
 //	public void register(String userJson) {
 //		User user = gson.fromJson(userJson, User.class);
 //		if(duplicatedUsername(user.getUsername())) {  //notnull이라는 뜻
