@@ -122,6 +122,7 @@ public class UserManagementFrame extends JFrame {
 		loginButton.addMouseListener(new MouseAdapter() {  //마우스어댑터가 리스너를 이미 구현함 마우스 어댑터로 구현하고싶은것만 구현
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				System.out.println("로그인 요청");
 				
 			}
 		});
