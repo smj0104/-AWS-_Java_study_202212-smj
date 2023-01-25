@@ -129,5 +129,10 @@ having  /* group by로 묶은것들중에서 조건*/
 order by
 	mentor_id desc;
     
+        
+set profiling = 1;
+set profiling_history_size = 30;
+show profiles
+
     
     

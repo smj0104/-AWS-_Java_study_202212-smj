@@ -70,12 +70,13 @@ from  /* 1번으로 동작*/
     left outer join author_mst am on(am.author_id = lm.저작자)
 where
 	am.author_name like '%김주%';
+    
+    show profiles;
 
 /* author_name like '%김주%'
 	or author_name like '%김민');
 
 /*'김주'가 들어간 저작자 있을시 도서관, 책 나오도록*/
-
 set profiling = 1;
 set profiling_history_size = 30;
 

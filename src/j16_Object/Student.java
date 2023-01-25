@@ -23,6 +23,7 @@ public class Student { // extends Object가 모든 클래스에 생략되어있�
 		if (this == obj) {
 			return true;
 		}
+		
 		if (obj == null) { // null 확인우선으로
 			return false;
 		}

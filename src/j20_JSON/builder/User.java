@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder  //밑의 주석 처리 모두 builder에 해당
 //@AllArgsConstructor //전체생성자
 public class User {
-
+	private int userId;
 	private String username;
 	private String password;
 	private String name;
