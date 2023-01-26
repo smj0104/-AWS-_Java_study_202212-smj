@@ -273,7 +273,8 @@ public class UserManagementFrame extends JFrame {
 					JOptionPane.showMessageDialog(null, response.get("error"), "error", JOptionPane.ERROR_MESSAGE);
 					return; // 이벤트에 대한 리턴
 				}
-				JOptionPane.showMessageDialog(null, response.get("OK"), "OK", JOptionPane.INFORMATION_MESSAGE);
+				
+				JOptionPane.showMessageDialog(null, response.get("확인"), "확인", JOptionPane.INFORMATION_MESSAGE);
 				mainCard.show(mainPanel, "loginPanel");  //화면 넘어감
 				clearFields(registerFields); //넘어가고 화면 클리어 , 클릭이 되었을때 호출됨 , 생성자가 먼저 호출되어서 값이 이미 들어가있음, 화면전환이 일어날때마다 해줄것
 

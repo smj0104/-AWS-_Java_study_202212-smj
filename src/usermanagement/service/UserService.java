@@ -1,5 +1,5 @@
 package usermanagement.service;
-
+//ctrl shift o 정리 기억
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -9,6 +9,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import usermanagement.entity.RoleDtl;
 import usermanagement.entity.User;
 import usermanagement.repository.UserRepository;
 
@@ -71,6 +72,14 @@ public class UserService {
 		System.out.println(user);
 
 		userRepository.saveUser(user);
+		
+		RoleDtl roldDtl = RoleDtl.builder()
+				.roleId(3)
+				.userId(user.getUserId())
+				
+				.build();
+		
+	
 
 		response.put("ok", "회원가입 성공");
 

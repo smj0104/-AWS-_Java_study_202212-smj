@@ -40,9 +40,9 @@ public class 풀이 {
 			//몇개가 적용이 된건지 int값으로 리턴해줌
 			resultSet = preparedStatement.getGeneratedKeys();
 			
-			if(resultSet.next()) {
+			if(resultSet.next()) {  //resultSet.next()를 통해서 내려갈수있는 다음행이 있을경우 true 못내려가면 false	
 				System.out.println("이번에 만들어진 user_id Key값: " + resultSet.getInt(1));
-				user.setUserId(resultSet.getInt(1));
+				user.setUserId(resultSet.getInt(1));  //칼럼의 1번째 값을 int형으로 가져온다.
 			}
 		
 		} catch (Exception e) {

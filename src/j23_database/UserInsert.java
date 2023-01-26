@@ -15,17 +15,19 @@ public class UserInsert {
 	
 	private DBConnectionMgr pool;
 	
-	public UserInsert() {
+	public UserInsert() { //싱글톤안에 벡터가 들어있음
 		pool = DBConnectionMgr.getInstance();
 	}
 	
 	public int saveUser(User user) {//여러개를 한번에 받으려면 list사용
 		int successCount = 0;
+		
 		DBConnectionMgr pool = DBConnectionMgr.getInstance();
 		String sql = null;
+		
 		Connection connection = null;
-		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
 		
 		
 		try {
@@ -35,20 +37,21 @@ public class UserInsert {
 					+ "values (0, ?, ?, ?, ?)";
 				
 				
-			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);  //pool에서 connection 객체 생성
+			preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);  //pool에서 connection 객체 생성 autoincrement된 아이디값 필요?
+			
 			preparedStatement.setString(1, user.getUsername()); //첫번째 물음표에 username을 넣겠다
 			preparedStatement.setString(2, user.getPassword()); //user에 들어있는 값을 db로 옮겨줌
 			preparedStatement.setString(3, user.getName()); 
 			preparedStatement.setString(4, user.getEmail()); 
 			//쿼리를 작성해서 넣겠다는 뜻
 			
-			successCount = preparedStatement.executeUpdate(); //insert, update, delete 명령 실행
+			successCount = preparedStatement.executeUpdate(); //insert, update, delete 명령 실행 successCount에 저장
 			//몇개가 적용이 된건지 int값으로 리턴해줌
 			resultSet = preparedStatement.getGeneratedKeys();
 			
 			if(resultSet.next()) {
-				System.out.println("이번에 만들어진 user_id Key값: " + resultSet.getInt(1));
-				user.setUserId(resultSet.getInt(1));
+				System.out.println("이번에 만들어진 user_id Key값: " + resultSet.getInt(1)); 
+				user.setUserId(resultSet.getInt(1)); //방금전 생성된 값을 UserId변수에 넣겠다
 			}
 		
 		} catch (Exception e) {
@@ -125,7 +128,8 @@ public class UserInsert {
 	
 		/*================================================*/
 		
-		List<Integer> roleIdList = new ArrayList<>();
+		List<Integer> roleIdList = new ArrayList<>();  // list와 map의 사용시기  map은 지정한 key값을 가져오는 꼬리표,해당 key값으로 바로 조회하고싶을때(임시 entity객체)
+														//
 		
 		roleIdList.add(2);
 		roleIdList.add(3);
