@@ -31,6 +31,7 @@ public class JsonMap {
 		System.out.println(userobj);
 		
 		JsonObject jsonObject = new JsonObject();
+		
 		jsonObject.addProperty("test1", "aaa");
 		jsonObject.addProperty("test2", "bbb");
 		jsonObject.addProperty("test3", "ccc");

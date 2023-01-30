@@ -1,5 +1,5 @@
 package j08_메소드;
-
+//메소드의 사용이유: 1 중복제거 2 모듈화(메소드명은 그 기능을 정확히 알수있게 작성)
 public class Method1 {
 	
 	public static int sum(int x, int y) {

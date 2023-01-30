@@ -64,9 +64,12 @@ public class UserService {
 		System.out.println("암호화 후");
 		System.out.println(user);
 
-		userRepository.saveUser(user);
+		userRepository.saveUser(user);  //클래스명 뒤 .은 스태틱만 ,주소 참조
 
-		RoleDtl roleDtl = RoleDtl.builder().roleId(3).userId(user.getUserId()).build();
+		RoleDtl roleDtl = RoleDtl.builder()
+				.roleId(3)
+				.userId(user.getUserId())
+				.build();
 
 		userRepository.saveRoleDtl(roleDtl);
 

@@ -1,6 +1,6 @@
 package j21_예외;
 
-//java compile언어 처음부터 끝까지 한번에 해석 python 한줄씩
+//java compile언어 처음부터 끝까지 한번에 해석 python은 한줄씩
 // 프로그램의 오류 == 예외   unchecked exception 예외처리를 하지않아도 프로그램이 진행됨
 public class ArrayException {
 

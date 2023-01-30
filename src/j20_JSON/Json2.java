@@ -11,9 +11,9 @@ public class Json2 {
 	public static void main(String[] args) {
 		Map<String, Object> map = new HashMap<>();
 		
-		map.put("a" , "test1");
-		map.put("b" , 10.5);
-		map.put("c" , new int[] {10, 20, 30, 40, 50});
+		map.put("a", "test1");
+		map.put("b", 10.5);
+		map.put("c", new int[] {10, 20, 30, 40, 50});
 		
 		System.out.println(map);
 		

@@ -56,7 +56,7 @@ public class UserRepository {
 			
 			rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
-				user.setUserId(rs.getInt(1));
+				user.setUserId(rs.getInt(1)); //열을 하나씩 참조
 			}
 			
 			

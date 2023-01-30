@@ -13,6 +13,7 @@ public class Method3 {
 	
 	public static void ov1(int a, String b) {
 		System.out.println("int 먼저 그다음 String");
+	
 	}
 	
 	public static void ov1(String a, int b) {
@@ -23,5 +24,6 @@ public class Method3 {
 		ov1();
 		ov1(10);
 		ov1(10, "bee");
+		ov1("bee", 10);
 	}
 }

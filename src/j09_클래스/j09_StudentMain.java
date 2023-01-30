@@ -13,11 +13,12 @@ public class j09_StudentMain {
 		s1.name = "김준일";
 		s1.age = 30;
 		
-		s1.prinInfo();
 		
-		s2.prinInfo();
+		s1.printInfo();
 		
-		s3.prinInfo();
+		s2.printInfo();
+		
+		s3.printInfo();
 		
 		
 //      J09_User
