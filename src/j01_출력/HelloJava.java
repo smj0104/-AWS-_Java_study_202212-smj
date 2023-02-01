@@ -29,8 +29,7 @@ public class HelloJava {
 	
 	System.out.println();
 	
-	KIA.getInstance().printCompanyName();
-	A.getInstance().showStudents();
+	
 	}
 
 }
