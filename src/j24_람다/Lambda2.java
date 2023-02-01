@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Lambda2 {
 	
@@ -85,7 +89,51 @@ public class Lambda2 {
 			 System.out.println();
 		 }
 		 
-		
+		 
+		 // 4. Function<T, R>
+		 Function<String, Integer> h = num -> Integer.parseInt(num);  //parseInt : 숫자형의 문자값을 해당값을 10진수의 int형으로 반환해줌
+		 
+		 int convertStrNum1 = h.apply("10000");
+		 int convertStrNum2 = h.apply("20000");
+		 
+		 System.out.println(convertStrNum1 + convertStrNum2);
+		 
+		 
+		 // 5. Predicate<T>  해당 문자가 있는지 확인후 true false 반환
+		 Predicate<String> p = str -> str.startsWith("김");
+		 Predicate<String> p2 = str -> str.startsWith("이");
+		 
+		 // System.out.println(p.test("김준일") || p2.test("이")); 이런식으로 사용하지않음  // || OR 둘 중 하나가 참
+		// System.out.println(p.or(p2).test("이준일"));
+		 
+		 Function<Predicate<String>, Boolean > function1 =
+				 predicate -> predicate.or(str -> str.startsWith("이")).test("김준일");
+				 
+		 boolean rs = function1.apply(str -> str.startsWith("김"));
+		 System.out.println(rs);
+		 
+		 
+		 
+		 List<String> namesList = new ArrayList<>();
+		 namesList.add("김종환");
+		 namesList.add("김종환1");
+		 namesList.add("김종환2");
+		 namesList.add("김종환3");
+		 
+		 // 스트림 -> 일회성
+		 Stream<String> stream = namesList.stream().filter(name -> name.startsWith("김")); //list를 stream으로 바꿈  filter : 
+		 //stream.forEach(name -> System.out.println(name)); //stream을 forEach로 바꿈
+		 List<String> newList = stream.collect(Collectors.toList());
+		 
+		 newList.forEach(str -> System.out.println(str));
+		 
+		 System.out.println();
+		 
+		 namesList.stream()
+		 	.filter(name -> name.startsWith("김"))
+		 	.collect(Collectors.toList())
+		 	.forEach(name -> System.out.println(name));
+		 
 	}
 
 }
