@@ -17,7 +17,7 @@ public class 주석0202 {
         when 발행연도 = '' then '2090'
 	end as 발행연도,
 	if(ifnull(발행연도, '') = '', '2023', 발행연도) as 발행연도2, 앞에 값이 null이면 바꿔줌
-    nullif(발행연도, '')) as 발행연도3,    두개의 값 (발행연도, 공백)을 비교해 null이면 공백으로 바꿈
+    nullif(발행연도, '')) as 발행연도3,    두개의 값 (발행연도, 공백)을 비교해 true가 아니면 발행연도를 return true라면 null을 return
     if(청구기호 = '','기호없음', 청구기호) as 청구기호                                               		삼항 연산자  청구기호의 값이 비었으면 기호없음 출력 있으면 청구기호 표시
 from
 	db_study3.library_mst;
