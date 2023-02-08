@@ -20,7 +20,7 @@ import usermanagement.entity.User;
 import usermanagement.server.controller.AccountController;
 
 public class SocketServer extends Thread {
-	private static List<SocketServer> socketServerList = new ArrayList<>();
+	private static List<SocketServer> socekServerList = new ArrayList<>();
 	
 	private Socket socket;
 	private InputStream inputStream;
@@ -30,26 +30,27 @@ public class SocketServer extends Thread {
 	public SocketServer(Socket socket) {
 		this.socket = socket;
 		gson = new Gson();
-		socketServerList.add(this); //담당자 한명 배정
+		socekServerList.add(this);
 	}
 	
 	@Override
 	public void run() {
 		try {
-			recieveRequest();
+			reciveRequest();
+			
 		} catch (IOException e) {
-			System.out.println(socket.getInetAddress() + ":" + socket.getPort() + "클라이언트와의 접속 끊김!");
+			System.out.println(socket.getInetAddress() + ":" + socket.getPort() + " 클라이언트의 접속이 끊어졌습니다.");
 		}
 	}
 	
-	private void recieveRequest() throws IOException {
+	private void reciveRequest() throws IOException {
 		inputStream = socket.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		
 		while(true) {
 			String request = reader.readLine();
 			if(request == null) {
-				throw new ConnectException();  //강제로 예외발생 시킴
+				throw new ConnectException();
 			}
 			
 			RequestMapping(request);
@@ -62,22 +63,29 @@ public class SocketServer extends Thread {
 		switch (resource) {
 			case "register":
 				User user = gson.fromJson((String)requestDto.getBody(), User.class);
-				ResponseDto<?> responseDto = AccountController.getinstance().register(user);
+				ResponseDto<?> responseDto = AccountController.getInstance().register(user);
 				sendResponse(responseDto);
 				break;
-		default:
-			System.out.println("해당 요청은 처리할 수 없습니다.(404)");
-			break;
+			default:
+				System.out.println("해당 요청은 처리할 수 없습니다.(404)");
+				break;
 		}
-		
 	}
 	
-	private void sendResponse(ResponseDto<?>  responseDto) throws IOException {  //throws IOException
+	private void sendResponse(ResponseDto<?> responseDto) throws IOException {
 		String response = gson.toJson(responseDto);
 		outputStream = socket.getOutputStream();
 		PrintWriter writer = new PrintWriter(outputStream, true);
 		writer.println(response);
 		writer.flush();
-		
 	}
+	
 }
+
+
+
+
+
+
+
+
