@@ -20,11 +20,10 @@ public class ClientReceive extends Thread {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			
 			while(true) {
-				if(Client.name != null) {
 					System.out.println(reader.readLine());
 				}
 				//System.out.println(reader.readLine());  //무한루프 돌면서 출력 (readLine)이 한번씩 들어올때 마다 출력
-			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

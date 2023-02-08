@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import com.google.gson.Gson;
+
+import usermanagement.dto.RequestDto;
 
 public class SocketClient {
 	
@@ -18,8 +24,15 @@ public class SocketClient {
 			InputStreamReader streamReader = new InputStreamReader(inputStream);  //읽기전용 한바이트씩 읽음
 			BufferedReader reader = new BufferedReader(streamReader);  //버퍼를 쓴다 == 한뭉탱이로 묶어서 보겠다 
 			
-			System.out.println(reader.readLine());  //한 줄을 읽음  read() == 아스키코드로 하나 출력
+			//System.out.println(reader.readLine());  //한 줄을 읽음  read() == 아스키코드로 하나 출력
 			
+			OutputStream outputStream = socket.getOutputStream();
+			PrintWriter printWriter = new PrintWriter(outputStream, true);
+			
+			Gson gson = new Gson();
+			RequestDto<String> dto = new RequestDto<String>("test", "테스트 데이터");
+			
+			printWriter.println();
 			
 		} catch (UnknownHostException e) {  //ip를 못잡을때
 			e.printStackTrace();

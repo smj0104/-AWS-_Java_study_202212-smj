@@ -10,14 +10,21 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.protobuf.ByteString.Output;
+
 public class SocketServer extends Thread {
 	
 	public static List<SocketServer> clientList = new ArrayList<>();
 	private Socket socket;
+	private InputStream inputStream;
+	private OutputStream outputStream;
+	
+	private static int autoIncrement = 1;
 	private String name;
 	
 	public SocketServer(Socket socket) {
 		this.socket = socket;
+		name = "user" + autoIncrement++;
 		clientList.add(this);  //자기 자신을 생성해서 담음 static이기에 가능
 	}
 	
@@ -27,43 +34,42 @@ public class SocketServer extends Thread {
 		System.out.println("IP: " + socket.getInetAddress());  //클라이언트의 ip주소 확인
 		
 		try {
-			InputStream inputStream = socket.getInputStream();
+			inputStream = socket.getInputStream();  //메시지가 서버로 들어올때 사용
 			BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 			
-			OutputStream outputStream = socket.getOutputStream();
-			PrintWriter writer = new PrintWriter(outputStream, true);
+			sendToAll(name + "님이 접속하였습니다.");
 			
-			writer.println("서버 접속 성공!");  //서버가 클라이언트한테 프린트
-			writer.println("사용자 이름을 입력하세요?");
-			
-			String message = null;
-			boolean loginFlag = false;
-			while((message = reader.readLine()) != null) {     //메세지 변수에 값을 대입하고 null인지 확인
-				if(name == null) {
-					name = message;
-					System.out.println("\n서버에 " + name + "님이 접속하였습니다.");
-				
+			while(true) {
+				String message = reader.readLine();
+				if(message == null) {
+					break;
 				}
-
-				for(SocketServer s : clientList) {
-					try {
-						outputStream = s.socket.getOutputStream();
-						writer = new PrintWriter(outputStream, true);
-						if(!loginFlag) {
-							writer.println("\n" + s.name + "님이 접속하였습니다.");
-							loginFlag = true;
-							continue;
-						}
-						writer.println("\n" +s.name + ": " + message);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				sendToAll(message);
 			}
+			
+//			writer.println("서버 접속 성공!");  //서버가 클라이언트한테 프린트
+//			writer.println("사용자 이름을 입력하세요?");
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
+			
+		} finally {
+			try {
+				inputStream.close();
+				outputStream.close();
+				socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}
-
+	private void sendToAll(String message) throws IOException {  
+		for(SocketServer socketServer : clientList) {  //클라이언트 리스트에서 소켓서버 하나 꺼냄
+			outputStream = socketServer.socket.getOutputStream(); 
+			PrintWriter writer = new PrintWriter(outputStream, true);
+			writer.println(name + ": " + message);    //name = 멤버변수에 든 name 
+		}
+	}
 }
