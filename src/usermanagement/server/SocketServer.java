@@ -36,7 +36,7 @@ public class SocketServer extends Thread {
 	@Override
 	public void run() {
 		try {
-			reciveRequest();
+			reciveRequest();  //요청받음
 			
 		} catch (IOException e) {
 			System.out.println(socket.getInetAddress() + ":" + socket.getPort() + " 클라이언트의 접속이 끊어졌습니다.");
@@ -48,7 +48,7 @@ public class SocketServer extends Thread {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 		
 		while(true) {
-			String request = reader.readLine();
+			String request = reader.readLine();  //json으로 들어감
 			if(request == null) {
 				throw new ConnectException();
 			}
@@ -62,8 +62,8 @@ public class SocketServer extends Thread {
 		String resource = requestDto.getResource();
 		switch (resource) {
 			case "register":
-				User user = gson.fromJson((String)requestDto.getBody(), User.class);
-				ResponseDto<?> responseDto = AccountController.getInstance().register(user);
+				ResponseDto<?> responseDto =
+					AccountController.getInstance().register((String)requestDto.getBody());
 				sendResponse(responseDto);
 				break;
 			default:

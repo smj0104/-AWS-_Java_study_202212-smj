@@ -9,5 +9,4 @@ public class ResponseDto<T> {
 	private String code;
 	private T body;
 	
-
 }
