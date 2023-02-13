@@ -1,5 +1,5 @@
 package simplechatting.server;  //입장인원 리스트
-ㅇ
+
 import java.io.BufferedReader;  
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,7 +86,7 @@ public class ServerApplication {
 				
 				while(true) { //서버 실행시 계속 반복함
 					Socket socket = serverSocket.accept();  //클라이언트의 접속을 기다림 (연결버튼 누를때까지)  while안에 넣으면 매번 초기화
-					ConnectedSocket connectedSocket = new ConnectedSocket(socket);
+					ConnectedSocket connectedSocket = new ConnectedSocket(socket); //ConnectedSocket = thread
 					connectedSocket.start();
 						
 					}

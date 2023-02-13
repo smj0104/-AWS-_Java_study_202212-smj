@@ -1,4 +1,4 @@
-package simplechatting.client;
+package simplechatting2.client;
 
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
@@ -23,12 +23,31 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.google.gson.Gson;
+
+import lombok.Data;
+import lombok.Getter;
+import simplechatting2.dto.MessageReqDto;
+import simplechatting2.dto.RequestDto;
+import simplechatting2.dto.joinReqDto;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+@Getter
 public class ChattingClient extends JFrame {
+	private static ChattingClient instance;
+	
+	public static ChattingClient getInstance() {
+		if(instance == null) {
+			instance = new ChattingClient();
+		}
+		return instance;
+	}
 	
 	private Socket socket;
+	private Gson gson;
 	private String username;
 
 	private JPanel contentPane;
@@ -44,7 +63,7 @@ public class ChattingClient extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChattingClient frame = new ChattingClient();
+					ChattingClient frame = ChattingClient.getInstance();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -53,8 +72,9 @@ public class ChattingClient extends JFrame {
 		});
 	}
 
-
-	public ChattingClient() {
+	private ChattingClient() {
+		gson = new Gson();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 500);
 		contentPane = new JPanel();
@@ -87,47 +107,19 @@ public class ChattingClient extends JFrame {
 							socket.getInetAddress() + "서버 접속",
 							"접속 성공",
 							JOptionPane.INFORMATION_MESSAGE);
+					ClientRecieve clientRecieve = new ClientRecieve(socket);
+					clientRecieve.start();
 					
-					InputStream inputStream = socket.getInputStream();  //서버로부터 데이터를 받는 통로를 열어줌
-					BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
+					username = JOptionPane.showInputDialog(null,"사용자 이름을 입력해 주세요.", "이름입력", JOptionPane.INFORMATION_MESSAGE);
+					joinReqDto joinReqDto = new joinReqDto(username);
+					String joinReqDtoJson = gson.toJson(joinReqDto);
+					RequestDto requestDto = new RequestDto("join", joinReqDtoJson);
+					String requestDtoJson = gson.toJson(requestDto);  //서버한테 사용자 이름넣어서 보내준다
 					
-					if(in.readLine().equals("join")) {  //join 확인시 username 입력유도
-						username = JOptionPane.showInputDialog(null, "사용자이름을 입력하세요.", JOptionPane.INFORMATION_MESSAGE);  //username
-						
-						OutputStream outputStream = socket.getOutputStream();
-						PrintWriter out = new PrintWriter(outputStream,true);
+					OutputStream outputStream = socket.getOutputStream();
+					PrintWriter out = new PrintWriter(outputStream, true);
+					out.println(requestDtoJson);
 					
-						out.println(username);
-					}
-					
-					Thread thread = new Thread(() -> {
-						try {
-							InputStream input = socket.getInputStream();
-							BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-							
-							while(true) {  //혼자서 계속 도는 스레드
-								String message = reader.readLine();
-								if(message.startsWith("@welcome")) { 	//@로 시작하는가 확인
-									int tokenIndex = message.indexOf("/");
-									message = message.substring(tokenIndex + 1); // 웰컴메시지만 잘라서 보내줌
-								}else if(message.startsWith("@userList")) {
-									int tokenIndex = message.indexOf("/");
-									message = message.substring(tokenIndex + 1);
-									String[] usernames = message.split(",");
-									userListModel.clear();
-									for(String username : usernames) {
-										userListModel.addElement(username);  //addelements는 자동으로 증가
-									}
-									continue;
-								}
-								contentView.append(message + "\n" );
-							}
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					});
-					
-					 thread.start(); //위의 스레드를 실행하라 계속 메시지를 받아줌
 					
 				} catch (ConnectException e1) {
 					
@@ -180,8 +172,11 @@ public class ChattingClient extends JFrame {
 						try {
 							OutputStream outputStream = socket.getOutputStream();
 							PrintWriter out = new PrintWriter(outputStream, true);
+
+							MessageReqDto messageReqDto =
+									new MessageReqDto("all", username, messageInput.getText());
 							
-							out.println(username + ": " + messageInput.getText());  //
+							sendRequest("sendMessage", gson.toJson(messageReqDto));
 							messageInput.setText("");
 							
 						}	catch (IOException e1) {
@@ -213,5 +208,24 @@ public class ChattingClient extends JFrame {
 		});
 		sendButton.setBounds(544, 399, 128, 44);
 		contentPane.add(sendButton);
+		
+	}
+	
+	private void sendRequest(String resource, String body) {
+		OutputStream outputStream;
+		try {
+			outputStream = socket.getOutputStream();
+			PrintWriter out = new PrintWriter(outputStream, true);
+			
+			RequestDto requestDto = new RequestDto(resource, body);
+			
+			out.println(gson.toJson(requestDto));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 	}
 }
