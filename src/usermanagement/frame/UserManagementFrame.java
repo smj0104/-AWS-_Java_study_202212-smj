@@ -35,6 +35,9 @@ import com.google.protobuf.ByteString.Output;
 import usermanagement.dto.RequestDto;
 import usermanagement.dto.ResponseDto;
 import usermanagement.service.UserService;
+import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UserManagementFrame extends JFrame {
 	
@@ -143,6 +146,10 @@ public class UserManagementFrame extends JFrame {
 		loginPanel.add(passwordLabel);
 		
 		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
 		loginButton.addMouseListener(new MouseAdapter() {
 			@Override
