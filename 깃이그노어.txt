@@ -14,3 +14,6 @@ target/
 .springBeans
 .sts4-cache
 
+
+
+userId = (String) requestDto.getBody();
