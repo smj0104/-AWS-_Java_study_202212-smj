@@ -34,8 +34,7 @@ public class 주석0215 {
  * https://myhappyman.tistory.com/103
  * 
  * 
- * 
- * private void clearFields(	List<JTextArea> textArea) {
+ * private void clearFields(List<JTextArea> textArea) {
 		for(JTextArea field : textArea) {
 			if(field.getText().isEmpty()) {
 				continue;
