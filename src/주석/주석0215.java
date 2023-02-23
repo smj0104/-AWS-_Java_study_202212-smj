@@ -29,12 +29,24 @@ public class 주석0215 {
  * 
  * 카카오 아이콘
  * https://developers.kakao.com/
+ * 카카오 메시지 푸시
+ * https://developers.kakao.com/docs/latest/ko/push/common
  * 
  * https://thsd-stjd.tistory.com/147 참고
  * https://m.blog.naver.com/simhs93/221980987519
  * https://myhappyman.tistory.com/103
  * 
  * 
+ * 
+ * HashMap 을 리스트로 관리해서 새로 들어오는 id에 대해서 리스트를 for문돌면서
+
+존재하는지 확인한다음 있으면 중복이라고 보내고
+
+없으면 새로 add 해주고 진행하심 되시겠네요..
+
+해당 id가 퇴장하면 제거해주시공.
+
+
  * private void clearFields(List<JTextArea> textArea) {
 		for(JTextArea field : textArea) {
 			if(field.getText().isEmpty()) {
@@ -46,6 +58,26 @@ public class 주석0215 {
 	클라 리시브
 	responseDto.getUserId() + ": " +  추가
 	
+	
+	클라 리스트 모델
+	public void mouseClicked(MouseEvent e) {
+				String enterRoom = roomList.getSelectedValue();
+				if (e.getClickCount() == 2) {
+					if (enterRoom != null) {
+						
+						enterRoomname = enterRoom;
+						RequestDto<?> reqEnter = RequestDto.<String>builder()
+															.resource("enter")
+															.username(username)
+															.enterRoomname(enterRoom)
+															.body(enterRoom)
+															.build();
+						sendRequest(reqEnter);
+						ChatArea.setText("");
+						chattingRoomName.setText("제목: " + enterRoom + "의 방");
+						mainCard.show(MainPanel, "ChattingPanel");
+						
+					}
 	
 	
 
